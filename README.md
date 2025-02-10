@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+1. Clone this repository to your local machine
+
+2. Install dependencies using
+
+```bash
+npm install
+```
+
+3. Run the development server using
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Best Practices
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Before implement new features, you should create a new branch
 
-## Learn More
+- Before merge your branch to `dev` or `main`, ensure that your code is builded successful using
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **DON'T** push any credentials on github
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structures
 
-## Deploy on Vercel
+- `public`: store any external medias, ex. images, icons, fonts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `src`: store implemented codes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  - `app`: pages + API
+  - `components`: reusable UI
+  - `constants`: reusable constant values
+  - `services`: API caller
+  - `utils`: reusable functions
+
+Note that project structures is not rigid, it depends on your team.
+
+## Implementation
+
+- To import things:
+
+  - If they are in `public`, you can import it directly. For example, `public/image.png`
+
+  ```tsx
+  import "image.png";
+  ```
+
+  - Else, use `@` as the alias for relative path to `src`. For example `src/components/Button`
+
+  ```tsx
+  import "@/components/Button";
+  ```
+
+- To add new pages, create `page.tsx` in the path which relative to `src/app`, and the path will become the url of the page. For example, `src/app/hello/page.tsx` can be access via [http://localhost:3000/hello](http://localhost:3000/hello)
+
+  Now, add `/<your name>` after `hello` in the url and see what happens. For example, [http://localhost:3000/hello/Peerakarn](http://localhost:3000/hello/Peerakarn)
+
+- To add new reusable components, create `components/<component name>/index.tsx`. If you want to create a customized component that has functions as same as the existed tag in HTML, you should extend the props from the existed one. Please see `CustomizedButton` for more detail.
+
+- Same for constants, API callers, and utility functions, please refer to the `Project Structures` section to see where to store the reusable codes.
